@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatroom</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.socket.io/4.3.2/socket.io.min.js"></script>
+</head>
+<body class="chat-body">
+    <div class="chat-wrapper">
+        <div class="chat-header">
+            <h2>Welcome, {{ username }}</h2>
+            <form method="POST" action="{{ url_for('logout') }}">
+                <button type="submit" class="logout-btn">Logout</button>
+            </form>
+        </div>
+
+        <!-- Single chat box containing both old and live messages -->
+        <div id="messages" class="chat-box">
+            {% for user, msg, time in messages %}
+                <div><strong>{{ user }}:</strong> {{ msg }}</div>
+            {% endfor %}
+        </div>
+
+        <div class="chat-input-area">
+            <input id="message" placeholder="Type a message...">
+            <button id="send">Send</button>
+        </div>
+    </div>
+
+    <script>
+        const username = "{{ username }}";
+    </script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
