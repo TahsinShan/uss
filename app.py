@@ -14,8 +14,8 @@ socketio = SocketIO(app, manage_session=False)
 # ===== Users =====
 users = {
     "admin": "adminpass",
-    "Elara": "shanlovesme",
-    "huh_shanie": "what to write???!?! ______________________",
+    "elara": "shanlovesme",
+    "huh_shanie": "ily",
 }
 
 # ===== Database =====
