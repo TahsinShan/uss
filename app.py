@@ -90,11 +90,14 @@ def handle_message(msg):
         # Broadcast to all users
         send({"username": username, "message": msg}, broadcast=True)
 
-# ===== Main =====
+
+
+
 if __name__ == "__main__":
-    import eventlet
-    import eventlet.wsgi
-    port = int(os.environ.get("PORT", 5001))
-    socketio.run(app, host="0.0.0.0", port=port)
+    port = int(os.environ.get("PORT", 5002))  # use 5002 locally instead of 5001
+    debug_mode = (port == 5002)
+    socketio.run(app, host="0.0.0.0", port=port, debug=debug_mode)
+
+
 
 
