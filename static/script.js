@@ -1,9 +1,11 @@
-const socket = io();
+const socket = io(window.location.origin, {
+    transports: ["websocket", "polling"]
+});
 
 function sendMessage() {
     let msgInput = document.getElementById("message");
-    let msg = msgInput.value;
-    if (msg.trim()) {
+    let msg = msgInput.value.trim();
+    if (msg) {
         socket.send(msg);
         msgInput.value = "";
     }
@@ -11,16 +13,25 @@ function sendMessage() {
 
 document.getElementById("send").onclick = sendMessage;
 
-// Send message when pressing Enter
 document.getElementById("message").addEventListener("keydown", (e) => {
     if (e.key === "Enter") {
-        e.preventDefault(); // prevent newline in input
+        e.preventDefault();
         sendMessage();
     }
 });
 
 socket.on("message", (data) => {
     let messagesDiv = document.getElementById("messages");
-    messagesDiv.innerHTML += `<p><strong>${data.username}:</strong> ${data.message}</p>`;
+
+    let username, message;
+    if (typeof data === "object" && data.username && data.message) {
+        username = data.username;
+        message = data.message;
+    } else {
+        username = "Server";
+        message = data;
+    }
+
+    messagesDiv.innerHTML += `<p class="chat-msg"><strong>${username}:</strong> ${message}</p>`;
     messagesDiv.scrollTop = messagesDiv.scrollHeight;
 });

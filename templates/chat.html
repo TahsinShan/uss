@@ -19,7 +19,7 @@
         <!-- Single chat box containing both old and live messages -->
         <div id="messages" class="chat-box">
             {% for user, msg, time in messages %}
-                <div><strong>{{ user }}:</strong> {{ msg }}</div>
+                <p class="chat-msg"><strong>{{ user }}:</strong> {{ msg }}</p>
             {% endfor %}
         </div>
 
